@@ -1,6 +1,8 @@
 void main(List<String> args) {
 
   // 다트언어는 변수형을 자동으로 인식하는 선언이 있다.
+  // -> 타입추론
+
   // 1. var 
   var myHome = "내집이야~!";
   print(myHome);
@@ -52,11 +54,18 @@ void main(List<String> args) {
   print(we.length);
   
   // 4-2. Set 형 
-  // - 순서가 없고 중복되지 않는 데이터집합
+  // -> 순서가 없고 중복되지 않는 데이터집합
+  // -> 순서가 없으므로 호출해서 사용코자 할때는 List형으로 변환 후 사용한다. 
+  // -> Set형변수.toList()
+
   // Set<int> evens = {2,4,6,8,10,4};
   // Set<dynamic> evens = {2,4,6,8,10,4,'짝수'};
   var evens = {2,4,6,8,10,4,'짝수'};
   print(evens);
+  // 리스트형으로 변환
+  print(evens.toList());
+  // 변환후에는 순번으로 출력이 가능하다. 
+  print(evens.toList()[3]);
 
   // 4-3 . Map형 - 데이터에 라벨링된 데이터 집합 (객체와 유사)
   Map<String,String> actor = {"이름":"강동원","나이":"40"};
@@ -68,7 +77,7 @@ void main(List<String> args) {
   // 2. 메서드 체인방식 : 변수.to형()
   // -> 변수.toString() -> 문자형변환 
   // -> 변수.toList() -> 컬렉션 리스트형 변환 
-  
+
   // 주의 : 형 변환이 안될것 같으면 변환하지 마라! 
   // -> 예컨데 문자형 문자를 숫자로 변경못한다.
   String stNum = "777";
