@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
+void main() { // 플러터의 출발 메서드!
   runApp(const MyApp());
 }
 
