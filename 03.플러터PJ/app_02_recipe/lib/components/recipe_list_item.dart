@@ -1,5 +1,7 @@
 // 황금 레시피 리스트 아이템 클래스 //////
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 // 두개의 값을 전달 받아 처리한다!
@@ -20,9 +22,20 @@ class RecipeListItem extends StatelessWidget {
     return Column(
       children: [
         // 1.이미지 : 맴버변수 imageName사용
-        Image.asset(
-          "images/$imageName.jpeg",
+        // 비율설정 위젯 - AspectRatio
+        AspectRatio(
+          aspectRatio: 2 / 1,
+          // 사각 잘라내기 위젯 - clipRRect
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(
+              "images/$imageName.jpeg",
+              // 이미지 확장 채우기
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
+
         SizedBox(
           height: 10,
         ), // 사이간격
@@ -34,7 +47,15 @@ class RecipeListItem extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
-        )
+        ),
+        // 3. 레시피 소개글
+        Text(
+          "당신은 당신이 직접만든 $title를 가지고 계신가요? 만약 없다면 여기 쉽고 훌륭한 $title를 보고 따라해보세요~",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+          ),
+        ),
       ],
     );
   }

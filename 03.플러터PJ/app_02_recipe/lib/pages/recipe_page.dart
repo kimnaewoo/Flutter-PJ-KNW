@@ -23,32 +23,31 @@ class RecipePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // 가장 바깥쪽 레이아웃 Scaffold 위젯으로 시작!
     return Scaffold(
-      // 1. 전체 배경색 설정
-      // backgroundColor: Color.fromARGB(255, 19, 43, 95),
-      // 2. App Bar 클래스 호출 하기
-      appBar: _buildRecipeAppBar(),
-      // 3. body 구현하기
-      body: Padding(
-        // 상하/좌우 대칭 여백 패딩 설정
-      // (symmetric) : 대칭적인
-      // symmetric(horizontal:숫자,vertical:숫자)
-        padding: const EdgeInsets.symmetric(horizontal:20),
-        // Column 위젯대신 ListView 위젯을 사용해야 스크롤바 표시가 된다!
-        child: ListView(
-          children: [
-            // 레서피 전체 타이틀 
-            RecipeTitle(),
-            // 레서피 메뉴 
-            RecipeMenu(),
-            // 레서피 아이템
-            RecipeListItem('coffee', '커피레서피'),
-            RecipeListItem('burger', '햄버거레서피'),
-            RecipeListItem('pizza', '피자레서피'),
-          ],
-        ),
-      )
-        
-    );
+        // 1. 전체 배경색 설정
+        // backgroundColor: Color.fromARGB(255, 19, 43, 95),
+        // 2. App Bar 클래스 호출 하기
+        appBar: _buildRecipeAppBar(),
+        // 3. body 구현하기
+        body: Padding(
+          // 상하/좌우 대칭 여백 패딩 설정
+          // (symmetric) : 대칭적인
+          // symmetric(horizontal:숫자,vertical:숫자)
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          // const EdgeInsets.symmetric(horizontal:20,vertical: 10),
+          // Column 위젯대신 ListView 위젯을 사용해야 스크롤바 표시가 된다!
+          child: ListView(
+            children: [
+              // 레서피 전체 타이틀
+              RecipeTitle(),
+              // 레서피 메뉴
+              RecipeMenu(),
+              // 레서피 아이템
+              RecipeListItem('coffee', '커피레서피'),
+              RecipeListItem('burger', '햄버거레서피'),
+              RecipeListItem('pizza', '피자레서피'),
+            ],
+          ),
+        ));
   }
 }
 
@@ -65,18 +64,20 @@ AppBar _buildRecipeAppBar() {
     actions: [
       // 아이콘 위젯 - Icon
       Icon(
-          // 아이콘 옵션중 쿠퍼티노가 유명하다
-          // 주의 : 쿠퍼티노앱 상단 import 추가할것
-          CupertinoIcons.search,
-          color: Color.fromARGB(255, 27, 17, 124),
-          ),
-          SizedBox(width: 15,),
+        // 아이콘 옵션중 쿠퍼티노가 유명하다
+        // 주의 : 쿠퍼티노앱 상단 import 추가할것
+        CupertinoIcons.search,
+        color: Color.fromARGB(255, 27, 17, 124),
+      ),
+      SizedBox(
+        width: 15,
+      ),
       Icon(
-          // 아이콘 옵션중 쿠퍼티노가 유명하다
-          // 주의 : 쿠퍼티노앱 상단 import 추가할것
-          CupertinoIcons.heart,
-          color: Colors.red,
-          ),
+        // 아이콘 옵션중 쿠퍼티노가 유명하다
+        // 주의 : 쿠퍼티노앱 상단 import 추가할것
+        CupertinoIcons.heart,
+        color: Colors.red,
+      ),
     ],
   );
 }
