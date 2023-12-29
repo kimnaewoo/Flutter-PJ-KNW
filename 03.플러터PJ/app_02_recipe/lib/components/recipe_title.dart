@@ -6,11 +6,16 @@ class RecipeTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      "황금레서피",
-      style: TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(top:20.0),
+      child: Center(
+        child: Text(
+          "황금레서피",
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
