@@ -4,6 +4,8 @@
 // 공식 머티리얼 디자인 색상지정 클래스!
 import 'package:flutter/material.dart';
 
+// 프라이머리 컬러란 앱의 아이덴티티를 나타내는 색상이다.(플러터정의)
+
 const MaterialColor primaryWhite = MaterialColor(
     0xFFFFFFFF,
     // 스와치는 여러색상을 맵형으로 지정함
@@ -19,3 +21,15 @@ const MaterialColor primaryWhite = MaterialColor(
       800: Color(0xFFFFFFFF),
       900: Color(0xFFFFFFFF)
     });
+
+// 테마데이터를 리턴하는 함수를 만들자!
+ThemeData theme() {
+  return ThemeData(
+    // 앱의 전체테마 스와치(색상모음 지정)
+    primarySwatch: primaryWhite,
+    // 상단의 앱바의 테마도 여기서 지정가능(아이콘색을 파란색으로 지정한다)
+    appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(color: Colors.blue),
+    ),
+  );
+}
