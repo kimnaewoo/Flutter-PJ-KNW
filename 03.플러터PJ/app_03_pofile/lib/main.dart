@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:app_03_profile/components/profile_buttons.dart';
-import 'package:app_03_profile/components/profile_count_info.dart';
-import 'package:app_03_profile/components/profile_drawer.dart';
-import 'package:app_03_profile/components/profile_header.dart';
-import 'package:app_03_profile/components/profile_tab.dart';
-import 'package:app_03_profile/theme.dart';
+import 'package:app_03_pofile/components/profile_buttons.dart';
+import 'package:app_03_pofile/components/profile_count_info.dart';
+import 'package:app_03_pofile/components/profile_drawer.dart';
+import 'package:app_03_pofile/components/profile_header.dart';
+import 'package:app_03_pofile/components/profile_tab.dart';
+import 'package:app_03_pofile/theme.dart';
 
 void main() {
   runApp(const MyApp());

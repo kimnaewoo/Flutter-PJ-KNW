@@ -38,7 +38,7 @@ class ProfileHeader extends StatelessWidget {
           ),
         ),
         Text(
-          "Programmer/Designer/Gamer",
+          "Programmer/Designer",
           style: TextStyle(
             fontSize: 20,
           ),
