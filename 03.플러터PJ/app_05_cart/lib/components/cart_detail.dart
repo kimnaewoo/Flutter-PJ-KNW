@@ -53,7 +53,6 @@ class _CartDetailState extends State<CartDetail> {
         _buildPicture(),
         // 2. 선택버튼 : _buildSelector()
         _buildSelector(),
-
         // 3. 상품정보 : 상품명 + 상품가격 + 별점 + 리뷰수 + 색상옵션 + 버튼
       ],
     );
@@ -88,7 +87,7 @@ class _CartDetailState extends State<CartDetail> {
         bottom: 30,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // 버튼 4개 생성하기
           _buildSelectButton(0, Icons.directions_bike),
