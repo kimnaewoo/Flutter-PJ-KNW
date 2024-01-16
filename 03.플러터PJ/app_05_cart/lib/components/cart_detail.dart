@@ -1,29 +1,32 @@
-// 카트 페이지 상세구성 클래스
+// 카트페이지 상세구성 클래스
 // 버튼 클릭시 변경되는 변수값에 따라
-// 이미지와 정보 표시가 업데이트 되는
-//상태변경 위젯인 stateful 위젯(statefulWidget)으로 구성
+// 이미지와 정보표시가 업데이트 되는 상태변경 위젯인
+// stateful 위젯(StatefulWidget)으로 구성한다
+// stf 단축키로 생성
+
 import 'package:app_05_cart/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// 상태관리 위젯 상속한 메인 클래스
+// 상태관리위젯 상속한 메인 클래스 ///////////
 class CartDetail extends StatefulWidget {
   const CartDetail({Key? key}) : super(key: key);
 
-  // 상태관리가 반영되게 하기 위한 재정의(클래스연결)
+  // 상태관리가 반영되게 하기 위한 재정의(클래스 연결)
   @override
   State<CartDetail> createState() => _CartDetailState();
-} // CartDetail 클래스
+} ///////////CartDetail 클래스 ///////////
 
-// 상태관리에서 변경부분 반영을 위한 build메서드를
-// 분리하여 반영하는 서브 클래스
+// 상태관리에서 변경부분 반영을 위한 build메서드를 분리하여
+// 반영하는 서브 클래스!!!
 class _CartDetailState extends State<CartDetail> {
   // 선택된 버튼 순번을 저장하는 변수
   int sequenceNum = 0;
-  // ->> 이 클래스 내부에서 선언하여 사용하는 변수의
-  // 값이 변경되면 이 변수를 사용하는 위젯이 자동업데이트 된다
+  // ->> 이 클래스 내부에서 선언하여 사용하는 변수의 값이 변경되면
+  // 이 변수를 사용하는 위젯이 자동 업데이트 된다
 
-// 이미지 리스트
+  // 일반 값 셋팅 변수
+  // 이미지 리스트
   List<String> selectedPic = [
     "assets/p1.jpeg",
     "assets/p2.jpeg",
@@ -31,29 +34,56 @@ class _CartDetailState extends State<CartDetail> {
     "assets/p4.jpeg",
   ];
 
-// 상품명 리스트
+  // 상품명 리스트
   List<String> selectedTit = [
     "Living bicycle",
     "Honda motorcycle",
     "Tesla Model3",
     "Cessna 150",
   ];
-// 상품가격 리스트 [ 가격, 조회수 ]
-  Map<String, List> selectedPrice = {
+  // 상품정보 리스트[ 가격 , 리뷰, 별수 ]
+  Map<String, List> goodsInfo = {
     "Living bicycle": [699, 26, 5],
     "Honda motorcycle": [1700, 35, 7],
-    "Tesla Model3": [7800, 98, 3],
-    "Cessna 150": [12400, 75, 6],
+    "Tesla Model3": [78000, 98, 3],
+    "Cessna 150": [224000, 75, 6],
   };
+
+  // 상품색상 리스트
+  Map<String, List> goodsColor = {
+    "Living bicycle": [
+      Colors.red,
+      Colors.blue,
+    ],
+    "Honda motorcycle": [
+      Colors.yellow,
+      Colors.green,
+      Colors.purple,
+    ],
+    "Tesla Model3": [
+      Colors.black,
+      Colors.white,
+      Colors.grey,
+      Colors.deepOrange,
+      Colors.red,
+    ],
+    "Cessna 150": [
+      Colors.white,
+      Colors.black,
+    ],
+  };
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // 1. 상품이미지 : _buildPicture()
         _buildPicture(),
-        // 2. 선택버튼 : _buildSelector()
+        // 2. 선택버튼 : _buildSelector() -> _buildSelectButton()
         _buildSelector(),
-        // 3. 상품정보 : 상품명 + 상품가격 + 별점 + 리뷰수 + 색상옵션 + 버튼
+        // 3. 상품정보 : _buildCartInfo()
+        // 상품명+상품가격+별점+리뷰수+색상옵션
+        _buildCartInfo(),
       ],
     );
   }
@@ -61,74 +91,255 @@ class _CartDetailState extends State<CartDetail> {
   // 1. 상품이미지생성 메서드 : _buildPicture()
   Widget _buildPicture() {
     return Padding(
-      padding: EdgeInsets.all(16.0),
-      child:
-          // 비율유즈 박스내에 이미지를 넣는다!
-          AspectRatio(
-        aspectRatio: 5 / 3,
-        child: Image.asset(
-          // 위에 셋팅된 이미지를 호출!
-          // List형 변수의 순번으로 상태변경클래스 내부 변수를
-          // 사용하여 이 변수가 업데이트 되면 이미지도 변경됨!
-          selectedPic[sequenceNum],
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  } // _buildPicture() 메서드
+        padding: const EdgeInsets.all(16.0),
+        child:
+            // 비율유지 박스 내에 이미지를 넣는다
+            AspectRatio(
+                aspectRatio: 5 / 3,
+                child: Image.asset(
+                  // 위에 셋팅된 이미지를 호출
+                  // List형 변수의 수넌으로 상태변경클래스 내부 변수를
+                  // 사용하여 이 변수가 업데이트 되면 이미지도 변경됨
+                  selectedPic[sequenceNum],
+                  // 비율박스에 이미지 맞게 채움설정
+                  fit: BoxFit.cover,
+                )));
+  } /////_buildPicture 메서드 ////////////
 
-  // 2. 선택버튼 생성메서드 : _buildSelector()
+  // 2. 선택버튼생성 메서드 : _buildSelector()
+  // -> _buildSelectButton() 호출
   Widget _buildSelector() {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 30,
-        right: 30,
-        top: 10,
-        bottom: 30,
-      ),
+      padding: const EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 30),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // 버튼 4개 생성하기
-          _buildSelectButton(0, Icons.directions_bike),
-          _buildSelectButton(1, Icons.motorcycle),
-          _buildSelectButton(2, CupertinoIcons.car_detailed),
-          _buildSelectButton(3, CupertinoIcons.airplane),
-        ],
-      ),
+          // 진행방향 균일가격
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // 버튼 4개 생성하기
+            _buildSelectButton(0, Icons.directions_bike),
+            _buildSelectButton(1, Icons.motorcycle),
+            _buildSelectButton(2, CupertinoIcons.car_detailed),
+            _buildSelectButton(3, CupertinoIcons.airplane),
+          ]),
     );
-  } // _buildSelector 메서드
+  } /////////// _buildSelector //////////
 
-  // 선택버튼 만들기 메서드
+  // 선택버튼 만들기 메서드 ////////////
   Widget _buildSelectButton(int seq, IconData mIcon) {
     // seq변수 : 버튼 클릭시 변경할 순번변수값 셋팅
-    // mIcon변수 : 버튼아이콘
+    // mIcon변수 : 버튼 아이콘
     return Container(
       width: 70,
       height: 70,
       decoration: BoxDecoration(
-        // 버튼 배경색상을 선택된것과 일반적인것으로 구분함
-        // 현재 버튼하고 선택버튼순번과 같으면 엑센트색 넣기
+        // 버튼 배경색상은 선택된것과 일반적인것으로 구분함
+        // 현재 버튼하고 선택버튼 순번과 같으면 엑센트색 넣기
         color: seq == sequenceNum ? kAccentColor : kSecondaryColor,
-        // 둥근모서리 셋팅
+        // 둥근 모서리 셋팅
         borderRadius: BorderRadius.circular(20),
       ),
       child: IconButton(
-        icon: Icon(
-          mIcon,
-          color: Colors.black,
-        ),
+        icon: Icon(mIcon, color: Colors.black),
         onPressed: () {
           // 여기가 매우 중요함
-          // 버튼 클릭시 sequenceNum 변수값을 업데이트한다
-          // 그러면 이 변수를 사용하는 모든 위젯이 업데이트 된다
+          // 버튼 클릭시 sequenceNum 변수 값을 업데이트함
+          // 그러면 이 변수를 사용하는 모든 위젯이 업데이트 됨
           // 상태변수를 업데이트 하는 방법 :
-          // -> setState((){업데이트코드})
+          // -> setState((){업데이트 코드})
           setState(() {
             sequenceNum = seq;
           });
         },
       ),
     );
+  } //////// _buildSelectButton ////////////
+
+  // 3. 상품정보 : _buildCartInfo()
+  // 상품명+상품가격+별점+리뷰수+색상옵션
+  Widget _buildCartInfo() {
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Column(
+        // 진행방향의 수직축(crossAxis)의 시작부분부터 정렬(왼쪽 끝)
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 1. 이름/가격 : _buildNamePrice()
+          _buildNamePrice(),
+          // 2. 별점/리뷰수 : _buildStarReview()
+          _buildStarReview(),
+          // 3. 옵션 : _buildOption()
+          _buildOption(),
+          // 4. 버튼 : _buildButton()
+          _buildButton()
+        ],
+      ),
+    );
+  } /////////_buildCartInfo() ///////////////
+
+  // 1. 이름/가격 위젯 만들기 메서드 : _buildNamePrice()
+  Widget _buildNamePrice() {
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: Row(
+          // 메인축 정렬 양쪽끝(사이간격만 주기)
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // 1. 상품명 : selectedTit 리스트 형 변수값 읽어옴
+            // sequenceNum 의 순번값이 변경될때 이것도 업데이트됨
+            Text(
+              selectedTit[sequenceNum],
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            // 2. 상품가격 : goodsInfo
+            Text(
+              // 달러($)는 특수문자니까 역슬래쉬를 같이 씀
+              '\$${goodsInfo[selectedTit[sequenceNum]]?[0]}',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ));
+  } //////////////////_buildNamePrice /////////////////
+
+  // 2. 별점/리뷰수 위젯 만들기 메서드 : _buildStarReview()
+  Widget _buildStarReview() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Row(
+        children: [
+          // 여기에 for반복문을 쓰면 위젯을 반복할 수 있다
+          for (int i = 0; i < goodsInfo[selectedTit[sequenceNum]]?[2]; i++)
+            Icon(
+              Icons.star,
+              color: Colors.pink,
+            ),
+          // 사이간격 밀기
+          Spacer(),
+          // 리뷰수 보이기
+          Text(
+            // 달러($)는 특수문자니까 역슬래쉬를 같이 씀
+            'review(${goodsInfo[selectedTit[sequenceNum]]?[1]})',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.blue,
+            ),
+          ),
+        ],
+      ),
+    );
+  } //////////////////_buildStarReview /////////////////
+
+  // 3. 옵션 위젯 만들기 메서드 : _buildOption()
+  Widget _buildOption() {
+    // 선택색상 정보 변수에 셋업하기!
+    dynamic selectedColor = goodsColor[selectedTit[sequenceNum]];
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("color Options"),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              // 둥근모양의 색상 아이콘 메서드 호출
+              // 선택된 색상 옵션은 리스트형으로 for문으로 그 개수만큼 돌아준다!
+              for (int i = 0; i < selectedColor.length; i++)
+                _buildDetailIcon(selectedColor[i]),
+            ],
+          )
+        ],
+      ),
+    );
+  } //////////////////_buildOption /////////////////
+
+  // 둥근아이콘 만들기 함수
+  Widget _buildDetailIcon(Color mColor) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      // 5. Stack의 첫 번째 Container 위젯위에 Positioned 위젯이 올라가는 형태
+      // Stack위젯은 겹쳐지는 디자인을 할때 사용함!
+      // Stack은 아래로부터 위로 겹쳐져 쌓이는 형태를 이른다.
+      // 내부에 겹쳐질 위젯은 Positioned 위젯을 사용한다
+      // 이 위젯은 웹에서 absolute 포지션과 유사하다 (top,left 사용가능)
+      child: Stack(
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            // 둥근 디자인
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(),
+              shape: BoxShape.circle,
+            ),
+          ),
+          // 겹쳐질 위젯 넣기!
+          Positioned(
+            top: 5,
+            left: 5,
+            // Clipoval() 위젯 - 둥근모양 위젯(잘라줌)
+            child: ClipOval(
+              child: Container(
+                color: mColor,
+                width: 40,
+                height: 40,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
-} // _CartDetail 클래스
+
+  // 4. 버튼 위젯 만들기 메서드 : _buildButton()
+  Widget _buildButton() {
+    return Align(
+      child: TextButton(
+          style: TextButton.styleFrom(
+            // 배경색
+            backgroundColor: kAccentColor,
+            // 최소사이즈
+            minimumSize: Size(300, 50),
+            // 둥근모서리
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () {
+            // 장바구니 담기 확인 메시지창 쿠퍼티노 다이얼로그 사용
+            showCupertinoDialog(
+                // 앱현재 통합정보 context
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                      // 대화창메시지
+                      title: Text('장바구니에 담았습니다.'),
+                      // 팝업창 버튼 터치시 동작액션 : 닫기
+                      actions: [
+                        // 쿠퍼티노 액션담당 클래스 생성자함수
+                        CupertinoDialogAction(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          // 대화창 구성버튼 
+                          child: Text(
+                            "확인",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        )
+                      ],
+                    ));
+          },
+          child: Text(
+            'Add to Cart',
+            style: TextStyle(color: Colors.white),
+          )),
+    );
+  } //////////////////_buildButton ////////////////
+} ////////_CartDetailState 클래스 /////////////
+
